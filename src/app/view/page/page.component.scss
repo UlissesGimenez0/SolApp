@@ -1,0 +1,133 @@
+$header-color : #000000;
+$footer-color : #ff6c22;
+$text-color: #3f3f3f;
+
+@media (max-width: 400px) {
+  .TabContent {
+    padding: 15px 10px;
+  }
+}
+
+:host {
+  display: block;
+
+  min-height: 100vh;
+}
+
+
+
+.Header {
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  background-color: $header-color;
+}
+
+.logo {
+  height: 100%;
+  width: auto;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.TabHeader {
+  background-color: #ff6c22;
+}
+
+.TabContent {
+  color: $text-color;
+  ;
+}
+
+.teste {
+  color: $text-color;
+
+  background-color: #ff6c22;
+}
+
+
+.TableSearch {
+
+  display: flex;
+  justify-content: center;
+  padding: 10px 200px;
+
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 400px;
+  margin: 20px auto 0 auto;
+}
+
+mat-label {
+  font-weight: 600;
+  font-size: 14px;
+  color: $text-color;
+  margin-bottom: 4px;
+  display: block;
+}
+
+
+input {
+  margin-left: 0;
+  padding: 10px 14px;
+  font-size: 14px;
+  border-radius: 6px;
+  border: 1px solid #1f1c1c;
+  transition: border-color 0.3s ease;
+  width: 100%;
+  box-sizing: border-box;
+  background-color: #fff;
+  color: #000;
+}
+
+input:focus {
+  outline: none;
+  border-color: $footer-color;
+  box-shadow: 0 0 5px rgba(255, 108, 34, 0.6);
+}
+
+.btn {
+  background-color: $footer-color;
+  color: $text-color;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 20px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+  width: 100%;
+  max-width: 300px;
+  align-self: center;
+
+  &:hover {
+    background-color: dark($header-color, 100%);
+    transform: scale(1.02);
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+}
+
+.btn mat-label {
+  color: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+.divider-with-title {
+  font-weight: 500;
+  color: $footer-color;
+  
+}

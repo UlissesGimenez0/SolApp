@@ -1,0 +1,192 @@
+<mat-toolbar class="Header">
+  <img class="logo"
+    src="https://solcargas.com.br/wp-content/uploads/2024/05/logo-sol-cargas-transferencia-de-carga.webp" alt="Logo" />
+</mat-toolbar>
+
+<mat-tab-group>
+  <mat-tab class="TabHeader">
+    <ng-template mat-tab-label>
+      <mat-icon>add</mat-icon>
+      ADICIONAR ROTA
+    </ng-template>
+
+    <div class="TabContent">
+
+      <div class="form-group">
+
+
+        <div class="divider-with-title">
+          <span>Informações da Rota</span>
+        </div>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Origem</mat-label>
+          <input matInput [(ngModel)]="novaRota.origem" name="origem" required placeholder="Insira a Origem da Rota" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Destino</mat-label>
+          <input matInput [(ngModel)]="novaRota.destino" name="destino" required
+            placeholder="Insira o Destino da sua Rota" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Distância em KM</mat-label>
+          <input matInput type="number" [(ngModel)]="novaRota.distanciaKM" name="distanciaKM" required
+            placeholder="Insira a distância em KM" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Tempo de Viagem</mat-label>
+          <input matInput type="number" [(ngModel)]="novaRota.distanciaHoras" name="distanciaHoras" required
+            placeholder="Insira quantas horas a viagem leva" />
+        </mat-form-field>
+
+
+        <div class="divider-with-title">
+          <span>Informações do Trecho</span>
+        </div>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Origem</mat-label>
+          <input matInput [(ngModel)]="novoTrecho.origem" name="origemTrecho" required
+            placeholder="Insira a Origem da Rota" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Destino</mat-label>
+          <input matInput [(ngModel)]='novoTrecho.destino' name="destinoTrecho" required
+            placeholder="Insira o Destino da sua Rota" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Tempo de Viagem</mat-label>
+          <input matInput [(ngModel)]="novoTrecho.duracaoHoras" type="number"
+            placeholder="Insira quantas horas a viagem leva" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Motorista</mat-label>
+          <input matInput [(ngModel)]="novoTrecho.motorista" name="motorista" required
+            placeholder="Insira aqui o nome do Motorista" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Horário de Saída</mat-label>
+          <input matInput type="time" [(ngModel)]="novoTrecho.horaSaida" name="horaSaida" required />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Horário de Chegada</mat-label>
+          <input matInput type="time" [(ngModel)]="novoTrecho.horaChegada" name="horaChegada" required />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Tempo de Descarga</mat-label>
+          <input matInput type="number" placeholder="Insira o tempo de descarga"
+            [(ngModel)]="novoTrecho.tempoDescarregamentoMin" name="tempoDescarregamentoMin" name="DescargaMin"
+            required />
+        </mat-form-field>
+
+        <button (click)="adicionarTrecho()"> Adicionar Novo Trecho</button>
+
+
+        <button mat-raised-button color="primary">
+          Cadastrar Rota
+        </button>
+
+
+      </div>
+
+    </div>
+  </mat-tab>
+
+
+
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <mat-icon>delete</mat-icon>
+      DELETAR ROTA
+    </ng-template>
+    <div class="TabContent">Conteúdo da segunda aba.</div>
+  </mat-tab>
+
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <mat-icon>search</mat-icon>
+      PESQUISAR ROTA
+    </ng-template>
+
+    <div class="TableSearch">
+      <table mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8">
+
+        <!-- ID -->
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef> ID </th>
+          <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+        </ng-container>
+
+        <!-- Origem -->
+        <ng-container matColumnDef="origem">
+          <th mat-header-cell *matHeaderCellDef> Origem </th>
+          <td mat-cell *matCellDef="let element"> {{element.origem}} </td>
+        </ng-container>
+
+        <!-- Destino -->
+        <ng-container matColumnDef="destino">
+          <th mat-header-cell *matHeaderCellDef> Destino </th>
+          <td mat-cell *matCellDef="let element"> {{element.destino}} </td>
+        </ng-container>
+
+        <!-- Distância KM -->
+        <ng-container matColumnDef="distanciaKM">
+          <th mat-header-cell *matHeaderCellDef> KM </th>
+          <td mat-cell *matCellDef="let element"> {{element.distanciaKM}} </td>
+        </ng-container>
+
+        <!-- Duração Horas -->
+        <ng-container matColumnDef="distanciaHoras">
+          <th mat-header-cell *matHeaderCellDef> Horas </th>
+          <td mat-cell *matCellDef="let element"> {{element.distanciaHoras}} </td>
+        </ng-container>
+
+        <!-- Linha de detalhes (trechos) -->
+        <ng-container matColumnDef="expandedDetail">
+          <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">
+            <div *ngIf="isExpanded(element)" class="expanded-content">
+              <h4>Trechos:</h4>
+              <ul *ngIf="element.trechos?.length; else semTrechos">
+                <li *ngFor="let trecho of element.trechos">
+                  {{ trecho.origem }} → {{ trecho.destino }} |
+                  Motorista: {{ trecho.motorista || 'não definido' }} |
+                  Duração: {{ trecho.duracaoHoras || 'n/a' }}h |
+                  Tempo de Descarga: {{ trecho.tempoDescarregamentoMin || 'não definido' }} |
+
+                </li>
+              </ul>
+              <ng-template #semTrechos>
+                <p>Nenhum trecho cadastrado.</p>
+              </ng-template>
+            </div>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+
+        <tr mat-row *matRowDef="let element; columns: displayedColumns" class="element-row" (click)="toggle(element)">
+        </tr>
+
+        <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="detail-row"></tr>
+      </table>
+    </div>
+  </mat-tab>
+
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <mat-icon>update</mat-icon>
+      ATUALIZAR ROTA
+    </ng-template>
+    <div class="TabContent"></div>
+  </mat-tab>
+</mat-tab-group>
+<footer class="Header"></footer>
