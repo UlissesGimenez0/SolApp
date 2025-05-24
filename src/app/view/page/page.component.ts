@@ -8,12 +8,15 @@ import { Rota } from '../../models/Rota';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { Trecho } from '../../models/Trecho';
 import { CommonModule } from '@angular/common';
-import { FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
-import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { RotaService } from '../../services/rota.service';
+import { serialize } from 'v8';
+import { RouterModule } from '@angular/router';
+import { Router } from '@angular/router';
 
 
 
@@ -21,7 +24,8 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 @Component({
   selector: 'app-page',
   standalone: true,
-   imports: [
+  imports: [
+
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
@@ -33,7 +37,8 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    MatDividerModule
+    MatDividerModule,
+    HttpClientModule
   ],
   templateUrl: './page.component.html',
   styleUrl: './page.component.scss',
@@ -42,57 +47,32 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 
 
-
 export class PageComponent implements OnInit {
 
+
   private http = inject(HttpClient)
-  
-
-  adicionarTrecho() {
-
-    this.novaRota.trechos?.push(this.novoTrecho);
-
-}
-  cadastrarRota() {
-   
-
-  }
+  private rotaService = inject(RotaService)
+  private router = inject(Router)
 
 
-  formRotas : any
+
+
+
+  formRotas: any
 
   rotas: Rota[] = []
 
-  novaRota : Rota = {
-    id: 0 ,
-    destino : '',
-    origem : '',
-    distanciaHoras: '',
-    distanciaKM: '',
-    trechos: [],
-  }
-
-  novoTrecho : Trecho = {
-    id:  0, 
-    origem : '',
-    destino : '',
-    duracaoHoras : '',
-    motorista : '',
-    horaSaida : '',
-    horaChegada : '',
-    tempoDescarregamentoMin: '',
-    rotaId : ''
-  }
 
 
-
-  
 
   constructor() { }
   ngOnInit(): void {
 
-
+    this.carregarRotas();
   }
+
+
+
   dataSource = this.rotas;
   displayedColumns: string[] = ['id', 'origem', 'destino', 'distanciaKM', 'distanciaHoras'];
   expandedElement: Rota | null = null;
@@ -106,10 +86,31 @@ export class PageComponent implements OnInit {
   toggle(element: Rota) {
     this.expandedElement = this.isExpanded(element) ? null : element;
   }
+
+
+
+  search(event: Event) {
+    const target = event.target as HTMLInputElement;
+    const value = target.value.toLowerCase();
+    this.dataSource = this.rotas.filter(rota => {
+      return rota.origem.toLowerCase().includes(value) || rota.destino.toLowerCase().includes(value);
+    })
+
+  }
+
+  carregarRotas() {
+    this.rotaService.getRotas().subscribe({
+      next: (dados) => {
+        this.rotas = dados;
+        this.dataSource = dados;
+      },
+    });
+  }
+
+  goCadastrar() {
+    this.router.navigate(['/cadastrar']);
+  }
+
+
+
 }
-
-
-
-
-
-

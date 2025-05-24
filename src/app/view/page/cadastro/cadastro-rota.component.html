@@ -1,0 +1,143 @@
+
+  
+  <form #formRef = "ngForm">
+  <div class="TabContent">
+    <div class="form-group">
+      <div class="divider-with-title">
+        <span>Informações da Rota</span>
+      </div>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Origem</mat-label>
+        <input
+          matInput
+          [(ngModel)]="novaRota.origem"
+          name="origem"
+          required
+          placeholder="Insira a Origem da Rota"
+        />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Destino</mat-label>
+        <input
+          matInput
+          [(ngModel)]="novaRota.destino"
+          name="destino"
+          required
+          placeholder="Insira o Destino da sua Rota"
+        />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Distância em KM</mat-label>
+        <input
+          matInput
+          type="number"
+          [(ngModel)]="novaRota.distanciaKM"
+          name="distanciaKM"
+          required
+          placeholder="Insira a distância em KM"
+        />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Tempo de Viagem</mat-label>
+        <input
+          matInput
+          type="number"
+          [(ngModel)]="novaRota.distanciaHoras"
+          name="distanciaHoras"
+          required
+          placeholder="Insira quantas horas a viagem leva"
+        />
+      </mat-form-field>
+
+      <div class="divider-with-title">
+        <span>Informações do Trecho</span>
+      </div>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Origem</mat-label>
+        <input
+          matInput
+          [(ngModel)]="novoTrecho.origem"
+          name="origemTrecho"
+          required
+          placeholder="Insira a Origem da Rota"
+        />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Destino</mat-label>
+        <input
+          matInput
+          [(ngModel)]="novoTrecho.destino"
+          name="destinoTrecho"
+          required
+          placeholder="Insira o Destino da sua Rota"
+        />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Tempo de Viagem</mat-label>
+        <input
+          matInput
+          type="number"
+          [(ngModel)]="novoTrecho.duracaoHoras"
+          name="duracaoHoras"
+          placeholder="Insira quantas horas a viagem leva"
+        />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Motorista</mat-label>
+        <input
+          matInput
+          [(ngModel)]="novoTrecho.motorista"
+          name="motorista"
+          required
+          placeholder="Insira aqui o nome do Motorista"
+        />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Horário de Saída</mat-label>
+        <input
+          matInput
+          type="time"
+          [(ngModel)]="novoTrecho.horaSaida"
+          name="horaSaida"
+          required
+        />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Horário de Chegada</mat-label>
+        <input
+          matInput
+          type="time"
+          [(ngModel)]="novoTrecho.horaChegada"
+          name="horaChegada"
+          required
+        />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Tempo de Descarga</mat-label>
+        <input
+          matInput
+          type="number"
+          placeholder="Insira o tempo de descarga"
+          [(ngModel)]="novoTrecho.tempoDescarregamentoMin"
+          name="tempoDescarregamentoMin"
+          required
+        />
+      </mat-form-field>
+
+      <button  class="btn" (click)="adicionarTrecho()" type="button">Adicionar Novo Trecho</button>
+
+      <button class="btn" (click)="cadastrarRota()" [disabled]="formRef.invalid" type="submit">Cadastrar Rota</button>
+    </div>
+  </div>
+</form>

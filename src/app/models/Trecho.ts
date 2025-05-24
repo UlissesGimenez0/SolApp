@@ -7,5 +7,5 @@ export interface Trecho{
     horaSaida : string;
     horaChegada : string;
     tempoDescarregamentoMin: string;
-    rotaId : string;
+    rotaId?: number;
 }

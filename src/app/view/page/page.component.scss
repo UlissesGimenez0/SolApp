@@ -1,20 +1,11 @@
-$header-color : #000000;
-$footer-color : #ff6c22;
+$header-color: #000000;
+$footer-color: #ff6c22;
 $text-color: #3f3f3f;
-
-@media (max-width: 400px) {
-  .TabContent {
-    padding: 15px 10px;
-  }
-}
 
 :host {
   display: block;
-
   min-height: 100vh;
 }
-
-
 
 .Header {
   justify-content: center;
@@ -32,27 +23,22 @@ $text-color: #3f3f3f;
 }
 
 .TabHeader {
-  background-color: #ff6c22;
+  background-color: $footer-color;
 }
 
 .TabContent {
   color: $text-color;
-  ;
 }
-
-.teste {
-  color: $text-color;
-
-  background-color: #ff6c22;
-}
-
 
 .TableSearch {
-
   display: flex;
   justify-content: center;
   padding: 10px 200px;
+}
 
+.divider-with-title {
+  font-weight: 500;
+  color: $footer-color;
 }
 
 .form-group {
@@ -61,6 +47,8 @@ $text-color: #3f3f3f;
   gap: 12px;
   max-width: 400px;
   margin: 20px auto 0 auto;
+  font-weight: 500;
+  color: $footer-color;
 }
 
 mat-label {
@@ -71,9 +59,7 @@ mat-label {
   display: block;
 }
 
-
 input {
-  margin-left: 0;
   padding: 10px 14px;
   font-size: 14px;
   border-radius: 6px;
@@ -83,6 +69,7 @@ input {
   box-sizing: border-box;
   background-color: #fff;
   color: #000;
+  margin: 0; /* removido margin-left */
 }
 
 input:focus {
@@ -111,7 +98,6 @@ input:focus {
   align-self: center;
 
   &:hover {
-    background-color: dark($header-color, 100%);
     transform: scale(1.02);
   }
 
@@ -120,14 +106,62 @@ input:focus {
   }
 }
 
-.btn mat-label {
-  color: inherit;
-  font-size: inherit;
-  font-weight: inherit;
+/* Container flex para input + botão lado a lado */
+.search-container {
+  display: flex;
+  align-items: center;
+  max-width: 420px;
+  margin: 20px auto 0 auto;
+  gap: 10px; /* espaço entre input e botão */
 }
 
-.divider-with-title {
-  font-weight: 500;
-  color: $footer-color;
-  
+/* Input ocupa todo o espaço possível */
+.SearchLabel {
+  flex: 1;
+}
+
+/* Botão não encolhe e sem margin extra */
+.RedirectButton {
+  background-color: #1976d2;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 18px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 2px 4px rgba(25, 118, 210, 0.4);
+  flex-shrink: 0;
+
+  &:hover {
+    background-color: #115293;
+    box-shadow: 0 4px 8px rgba(17, 82, 147, 0.6);
+  }
+
+  &:active {
+    background-color: #0d3c6e;
+    box-shadow: none;
+  }
+
+  &:focus {
+    outline: 2px solid #90caf9;
+    outline-offset: 2px;
+  }
+}
+
+/* Responsividade simples */
+@media (max-width: 400px) {
+  .TabContent {
+    padding: 15px 10px;
+  }
+
+  .TableSearch {
+    padding: 10px 10px;
+  }
+
+  .search-container {
+    max-width: 100%;
+    padding: 0 10px;
+  }
 }
