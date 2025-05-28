@@ -15,8 +15,10 @@ import { MatDividerModule } from '@angular/material/divider';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { RotaService } from '../../services/rota.service';
 import { serialize } from 'v8';
-import { RouterModule } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { Router } from '@angular/router';
+import { response } from 'express';
+
 
 
 
@@ -38,6 +40,7 @@ import { Router } from '@angular/router';
     MatInputModule,
     MatButtonModule,
     MatDividerModule,
+    RouterModule,
     HttpClientModule
   ],
   templateUrl: './page.component.html',
@@ -53,15 +56,15 @@ export class PageComponent implements OnInit {
   private http = inject(HttpClient)
   private rotaService = inject(RotaService)
   private router = inject(Router)
+    private route = inject(ActivatedRoute)
 
 
 
 
-
+  
   formRotas: any
-
   rotas: Rota[] = []
-
+  
 
 
 
@@ -110,6 +113,17 @@ export class PageComponent implements OnInit {
   goCadastrar() {
     this.router.navigate(['/cadastrar']);
   }
+
+deleteRota(id : number) {
+  this.rotaService.deleteRota(id).subscribe(() => {
+    console.log('Rota excluída com sucesso');
+    alert("Rota excluída com sucesso")
+    this.carregarRotas();
+  });
+
+}
+
+
 
 
 

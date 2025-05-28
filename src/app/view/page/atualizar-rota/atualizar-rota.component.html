@@ -150,7 +150,7 @@
 
       <button
         class="btn"
-        (click)="adicionarTrecho()"
+        (click)="atualizarTrecho()"
         [disabled]="
           formRef.invalid ||
           novoTrecho.horaSaida > novoTrecho.horaChegada ||
@@ -158,19 +158,9 @@
         "
         type="button"
       >
-        Adicionar Novo Trecho
+        Atualizar Rota
       </button>
 
-      <button
-        class="btn"
-        (click)="cadastrarRota()"
-        [disabled]="
-          formRef.invalid || novoTrecho.horaSaida > novoTrecho.horaChegada || +novoTrecho.duracaoHoras <= 0 || +novoTrecho.tempoDescarregamentoMin <= 0
-        "
-        type="submit"
-      >
-        Cadastrar Rota
-      </button>
     </div>
   </div>
 </form>

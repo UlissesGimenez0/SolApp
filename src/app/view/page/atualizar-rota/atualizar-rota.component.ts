@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
@@ -14,13 +14,14 @@ import { MatTableModule } from '@angular/material/table';
 import { Rota } from '../../../models/Rota';
 import { Trecho } from '../../../models/Trecho';
 import { RotaService } from '../../../services/rota.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+
+
 
 
 @Component({
-  selector: 'app-cadastro-rota',
-  imports: [
-    CommonModule,
+  selector: 'app-atualizar-rota',
+  imports: [CommonModule,
     FormsModule,
     ReactiveFormsModule,
     MatTabsModule,
@@ -32,46 +33,51 @@ import { Router } from '@angular/router';
     MatInputModule,
     MatButtonModule,
     MatDividerModule,
-    HttpClientModule
-  ],
-  templateUrl: '././cadastro-rota.component.html',
-  styleUrl: '././cadastro-rota.component.scss'
+    RouterModule,
+    HttpClientModule],
+  templateUrl: './atualizar-rota.component.html',
+  styleUrl: './atualizar-rota.component.scss'
 })
-export class CadastroRotaComponent {
+
+
+export class AtualizarRotaComponent implements OnInit {
 
 
   private http = inject(HttpClient)
   private rotaService = inject(RotaService)
   private router = inject(Router)
+  private route = inject(ActivatedRoute)
 
 
-  adicionarTrecho() {
-    const trechoClonado: Trecho = { ...this.novoTrecho };
-
-    this.novaRota.trechos?.push(trechoClonado);
-
-    this.novoTrecho = {
-      id: 0,
-      origem: '',
-      destino: '',
-      duracaoHoras: '',
-      motorista: '',
-      horaSaida: '',
-      horaChegada: '',
-      tempoDescarregamentoMin: '',
-      rotaId: 0
-    };
+  constructor() { }
+  ngOnInit(): void {
+    const id = Number(this.route.snapshot.paramMap.get('id'));
+    this.rotaService.getRota(id).subscribe((rota) => {
+      this.novaRota = rota;
+      this.novoTrecho = rota.trechos?.[0] ?? {
+        id: 0,
+        origem: '',
+        destino: '',
+        duracaoHoras: '',
+        motorista: '',
+        horaSaida: '',
+        horaChegada: '',
+        tempoDescarregamentoMin: ''
+      };
+    })
   }
 
-  cadastrarRota() {
-    this.rotaService.createRota(this.novaRota).subscribe(data => {
-      alert('Rota cadastrada com sucesso!');
-      console.log('Rota criada:', data);
-    });
 
+  atualizarTrecho() {
 
+    this.rotaService.updateRota(this.novaRota).subscribe((response) => {
+      console.log(response);
+      alert('Rota Atualizada com sucesso!');
+    })
   }
-
+  goHome() {
+    this.router.navigate(['/home']);
+  }
 
 
   novaRota: Rota = {
@@ -94,11 +100,5 @@ export class CadastroRotaComponent {
     tempoDescarregamentoMin: '',
     rotaId: 0
   }
-  goHome() {
-    this.router.navigate(['/home']);
-  }
-
-
-  
 
 }
