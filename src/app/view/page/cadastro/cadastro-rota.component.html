@@ -148,13 +148,23 @@
         />
       </mat-form-field>
 
+      <div
+        *ngIf="
+        novoTrecho.tempoDescarregamentoMin &&
+        novoTrecho.tempoDescarregamentoMin &&
+        +novoTrecho.tempoDescarregamentoMin <= 0"
+        style="color: red"
+      >
+      O tempo de Descarregamento Não pode ser menor ou igual a 0
+    </div>
       <button
         class="btn"
         (click)="adicionarTrecho()"
         [disabled]="
           formRef.invalid ||
           novoTrecho.horaSaida > novoTrecho.horaChegada ||
-          +novoTrecho.duracaoHoras <= 0
+          +novoTrecho.duracaoHoras <= 0 || +novoTrecho.tempoDescarregamentoMin <= 0
+
         "
         type="button"
       >
@@ -165,7 +175,10 @@
         class="btn"
         (click)="cadastrarRota()"
         [disabled]="
-          formRef.invalid || novoTrecho.horaSaida > novoTrecho.horaChegada || +novoTrecho.duracaoHoras <= 0 || +novoTrecho.tempoDescarregamentoMin <= 0
+          formRef.invalid ||
+          novoTrecho.horaSaida >= novoTrecho.horaChegada ||
+          +novoTrecho.duracaoHoras <= 0 ||
+          +novoTrecho.tempoDescarregamentoMin <= 0
         "
         type="submit"
       >

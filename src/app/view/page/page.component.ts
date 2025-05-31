@@ -6,18 +6,15 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTableModule } from '@angular/material/table';
 import { Rota } from '../../models/Rota';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { Trecho } from '../../models/Trecho';
 import { CommonModule } from '@angular/common';
-import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {  FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { RotaService } from '../../services/rota.service';
-import { serialize } from 'v8';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { Router } from '@angular/router';
-import { response } from 'express';
 
 
 
@@ -56,13 +53,9 @@ export class PageComponent implements OnInit {
   private http = inject(HttpClient)
   private rotaService = inject(RotaService)
   private router = inject(Router)
-    private route = inject(ActivatedRoute)
+  private route = inject(ActivatedRoute)
 
 
-
-
-  
-  formRotas: any
   rotas: Rota[] = []
   
 
@@ -75,17 +68,16 @@ export class PageComponent implements OnInit {
   }
 
 
-
   dataSource = this.rotas;
   displayedColumns: string[] = ['id', 'origem', 'destino', 'distanciaKM', 'distanciaHoras'];
   expandedElement: Rota | null = null;
 
-  /** Checks whether an element is expanded. */
+
   isExpanded(element: Rota) {
     return this.expandedElement === element;
   }
 
-  /** Toggles the expanded state of an element. */
+
   toggle(element: Rota) {
     this.expandedElement = this.isExpanded(element) ? null : element;
   }
